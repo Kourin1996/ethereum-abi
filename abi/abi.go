@@ -15,6 +15,14 @@ type ABI struct {
 	Errors      map[string]Error
 }
 
+func Parse(s string) (*ABI, error) {
+	abi := &ABI{}
+	if err := json.Unmarshal([]byte(s), abi); err != nil {
+		return nil, err
+	}
+	return abi, nil
+}
+
 func (abi *ABI) UnmarshalJSON(data []byte) error {
 	type Value struct {
 		Name       string          `json:"name"`

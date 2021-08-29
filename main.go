@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"math/big"
 
@@ -11,11 +10,11 @@ import (
 func main() {
 	fmt.Printf("Hello, World\n")
 
-	abiData := abi.ABI{}
-	if err := json.Unmarshal([]byte(ABITest1), &abiData); err != nil {
-		fmt.Println(err)
+	abiData, err := abi.Parse(ABITest1)
+	if err != nil {
+		fmt.Printf("err=%+v\n", err)
 	}
-	res, err := abiData.EncodeCallFunctionData("setValue", big.NewInt(-12345))
+	res, err := abiData.EncodeCallFunctionData("setValue", big.NewInt(12345))
 	if err != nil {
 		fmt.Printf("err=%+v\n", err)
 		return
